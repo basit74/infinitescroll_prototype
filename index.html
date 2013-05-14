@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+		<meta charset="utf-8" />
+		<title>Infinitescroller demo</title>
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<div id="container">
+			<div class="item">
+				<h2>Item 1</h2>
+			</div>
+			<div class="item">
+				<h2>Item 2</h2>
+			</div>
+			<div class="item">
+				<h2>Item 3</h2>
+			</div>
+			<div class="item">
+				<h2>Item 4</h2>
+			</div>
+			<div class="item">
+				<h2>Item 5</h2>
+			</div>
+			<div class="item">
+				<h2>Item 6</h2>
+			</div>
+			<div class="item">
+				<h2>Item 7</h2>
+			</div>
+			
+		</diV>
+		
+		<div id="loader">
+		</diV>
+		
+		<script src="//ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+		<script src="js/InScroll.js"></script>
+		<script>
+			document.observe("dom:loaded", function() {
+				var options = {
+					url: "scroller.php",
+					interval: 500,
+					loader: 'loader',
+					onBeforeLoad: createQueryString
+				}
+				inScroller = InScroll( $('container'), options);
+				inScroller.start();
+			});
+			
+			function createQueryString() {
+				var pos = $("container").select("div.item").length;
+				if(pos == 0) {
+					inScroller.kill();
+					return false;
+				}
+				return "?pos=" + pos;
+			}
+		</script>
+	</body>
+</html>
